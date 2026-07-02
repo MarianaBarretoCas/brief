@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import LoginView from "../views/LoginView.vue";
-import DashboardView from "../views/DashboardView.vue";
-import BriefFormView from "../views/BriefFormView.vue";
-import BriefProgramsView from "../views/BriefProgramsView.vue";
-import BriefCreativeInputsView from "../views/BriefCreativeInputsView.vue";
-import BriefPreviewView from "../views/BriefPreviewView.vue";
-import BriefDetailView from "../views/BriefDetailView.vue";
+import LoginView from "../modules/auth/views/LoginView.vue";
+
+import BriefDashboardView from "../modules/briefs/views/BriefDashboardView.vue";
+import BriefCreateView from "../modules/briefs/views/BriefCreateView.vue";
+import BriefProgramsView from "../modules/briefs/views/BriefProgramsView.vue";
+import BriefCreativeInputsView from "../modules/briefs/views/BriefCreativeInputsView.vue";
+import BriefPreviewView from "../modules/briefs/views/BriefPreviewView.vue";
+import BriefDetailView from "../modules/briefs/views/BriefDetailView.vue";
 
 const routes = [
   {
@@ -21,12 +22,12 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: DashboardView,
+    component: BriefDashboardView,
   },
   {
     path: "/briefs/create",
     name: "brief-create",
-    component: BriefFormView,
+    component: BriefCreateView,
   },
   {
     path: "/briefs/:id/programs",
