@@ -1,104 +1,127 @@
 <template>
-  <main class="page">
-    <header class="app-header">
-      <div>
-        <strong>Brief Digital Institucional</strong>
-        <span>Universidad Externado</span>
-      </div>
+  <section class="space-y-6">
+    <BasePageHeader
+      title="Mis briefs"
+      description="Consulta y administra tus briefs institucionales."
+    >
+      <template #actions>
+        <BaseButton to="/briefs/create" size="md"> + Nuevo brief </BaseButton>
+      </template>
+    </BasePageHeader>
 
-      <span>Usuario ▾</span>
-    </header>
+    <div class="grid gap-6 md:grid-cols-4">
+      <BaseStatCard label="Total" value="3" />
+      <BaseStatCard label="Borradores" value="2" />
+      <BaseStatCard label="Enviados" value="1" />
+      <BaseStatCard label="Devueltos" value="0" />
+    </div>
 
-    <section class="page-header">
-      <div>
-        <h1>Mis briefs</h1>
-        <p>Consulta y administra tus briefs institucionales.</p>
-      </div>
+    <BaseTable
+      title="Briefs registrados"
+      description="Listado general de solicitudes creadas por el usuario."
+    >
+      <template #toolbar>
+        <div class="grid gap-4 md:grid-cols-[1fr_240px]">
+          <BaseInput placeholder="Buscar por código o nombre de campaña..." />
 
-      <RouterLink to="/briefs/create" class="button">
-        + Nuevo brief
-      </RouterLink>
-    </section>
+          <BaseSelect
+            model-value="Todos"
+            :options="['Todos', 'Borrador', 'Enviado', 'Devuelto']"
+          />
+        </div>
+      </template>
 
-    <section class="cards-grid">
-      <article class="card">
-        <span>Total</span>
-        <strong>3</strong>
-      </article>
+      <thead
+        class="bg-stone-50 text-left text-xs uppercase tracking-wide text-stone-500"
+      >
+        <tr class="text-center">
+          <th class="px-4 py-3">Código</th>
 
-      <article class="card">
-        <span>Borradores</span>
-        <strong>2</strong>
-      </article>
+          <th class="px-4 py-3">Nombre campaña</th>
 
-      <article class="card">
-        <span>Enviados</span>
-        <strong>1</strong>
-      </article>
+          <th class="px-4 py-3">Estado</th>
 
-      <article class="card">
-        <span>Devueltos</span>
-        <strong>0</strong>
-      </article>
-    </section>
+          <th class="w-[280px] px-4 py-3">Acciones</th>
+        </tr>
+      </thead>
 
-    <section class="toolbar">
-      <input type="text" placeholder="Buscar brief..." />
+      <tbody class="divide-y divide-stone-100 text-center">
+        <tr class="transition hover:bg-stone-50">
+          <td class="px-4 py-4 font-medium text-stone-900">BRF-2026-001</td>
 
-      <select>
-        <option>Estado: Todos</option>
-        <option>Borrador</option>
-        <option>Enviado</option>
-        <option>Devuelto</option>
-      </select>
-    </section>
+          <td class="px-4 py-4 text-stone-700">Filosofía y Derecho</td>
 
-    <section class="panel">
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Nombre campaña</th>
-            <th>Estado</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
+          <td class="px-4 py-4">
+            <BaseBadge variant="draft"> Borrador </BaseBadge>
+          </td>
 
-        <tbody>
-          <tr>
-            <td>BRF-2026-001</td>
-            <td>Filosofía y Derecho</td>
-            <td><span class="badge">Borrador</span></td>
-            <td>
-              <RouterLink to="/briefs/create" class="table-action">
+          <td class="px-4 py-4">
+            <div class="flex justify-end gap-2">
+              <BaseButton to="/briefs/create" variant="completing" size="xs">
                 Editar
-              </RouterLink>
-            </td>
-          </tr>
+              </BaseButton>
 
-          <tr>
-            <td>BRF-2026-002</td>
-            <td>Campaña Posgrados</td>
-            <td><span class="badge">Enviado</span></td>
-            <td>
-              <RouterLink to="/briefs/BRF-2026-002/detail" class="table-action">
+              <BaseButton to="/briefs/create" variant="third" size="xs">
+                Actualizar
+              </BaseButton>
+
+              <BaseButton variant="danger" size="xs"> Eliminar </BaseButton>
+            </div>
+          </td>
+        </tr>
+
+        <tr class="transition hover:bg-stone-50">
+          <td class="px-4 py-4 font-medium text-stone-900">BRF-2026-002</td>
+
+          <td class="px-4 py-4 text-stone-700">Campaña Posgrados</td>
+
+          <td class="px-4 py-4">
+            <BaseBadge variant="submitted"> Enviado </BaseBadge>
+          </td>
+
+          <td class="px-4 py-4">
+            <div class="flex justify-end gap-2">
+              <BaseButton
+                to="/briefs/BRF-2026-002/detail"
+                variant="secondary"
+                size="xs"
+              >
                 Ver
-              </RouterLink>
-            </td>
-          </tr>
+              </BaseButton>
 
-          <tr>
-            <td>BRF-2026-003</td>
-            <td>Derecho 2026</td>
-            <td><span class="badge">Devuelto</span></td>
-            <td>
-              <RouterLink to="/briefs/create" class="table-action">
+              <BaseButton to="/briefs/create" variant="third" size="xs">
+                Actualizar
+              </BaseButton>
+
+              <BaseButton variant="danger" size="xs"> Eliminar </BaseButton>
+            </div>
+          </td>
+        </tr>
+
+        <tr class="transition hover:bg-stone-50">
+          <td class="px-4 py-4 font-medium text-stone-900">BRF-2026-003</td>
+
+          <td class="px-4 py-4 text-stone-700">Derecho 2026</td>
+
+          <td class="px-4 py-4">
+            <BaseBadge variant="returned"> Devuelto </BaseBadge>
+          </td>
+
+          <td class="px-4 py-4">
+            <div class="flex justify-end gap-2">
+              <BaseButton to="/briefs/create" variant="completing" size="xs">
                 Editar
-              </RouterLink>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+              </BaseButton>
+
+              <BaseButton to="/briefs/create" variant="third" size="xs">
+                Actualizar
+              </BaseButton>
+
+              <BaseButton variant="danger" size="xs"> Eliminar </BaseButton>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </BaseTable>
+  </section>
 </template>
