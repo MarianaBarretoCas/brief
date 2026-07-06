@@ -1,70 +1,120 @@
+<script setup>
+import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+
+import ProgramBasicInfoSection from '../components/programs/ProgramBasicInfoSection.vue'
+import ProgramDatesLinksSection from '../components/programs/ProgramDatesLinksSection.vue'
+import ProgramValueSection from '../components/programs/ProgramValueSection.vue'
+import ProgramAudienceSection from '../components/programs/ProgramAudienceSection.vue'
+import ProgramsSidebar from '../components/programs/ProgramsSidebar.vue'
+
+import { useBriefDraftStore } from '../stores/briefDraft.store.js'
+
+const draftStore = useBriefDraftStore()
+
+const {
+  programs,
+  totalLeads,
+  estimatedInvestment,
+} = storeToRefs(draftStore)
+
+const activeProgramIndex = ref(0)
+
+const activeProgram = computed(() => {
+  return programs.value[activeProgramIndex.value]
+})
+
+const selectProgram = (index) => {
+  activeProgramIndex.value = index
+}
+
+const addProgram = () => {
+  draftStore.addProgram()
+  activeProgramIndex.value = programs.value.length - 1
+}
+
+const removeProgram = (index) => {
+  draftStore.removeProgram(index)
+
+  if (activeProgramIndex.value >= programs.value.length) {
+    activeProgramIndex.value = programs.value.length - 1
+  }
+}
+</script>
+
 <template>
-  <main class="page">
-    <header class="app-header">
-      <div>
-        <strong>Brief Digital Institucional</strong>
-        <span>Universidad Externado</span>
+  <section class="space-y-6">
+    <BasePageHeader
+      eyebrow="Programas incluidos"
+      title="Matriz de información de programas"
+      description="Registra la información académica, comercial y de segmentación de cada programa incluido en la campaña."
+    >
+      <template #actions>
+        <BaseButton to="/briefs/create" variant="secondary">
+          Volver
+        </BaseButton>
+
+        <BaseButton to="/briefs/BRF-2026-001/creative-inputs">
+          Continuar
+        </BaseButton>
+      </template>
+    </BasePageHeader>
+
+    <div class="grid gap-6 xl:grid-cols-[1fr_340px]">
+      <div v-if="activeProgram" class="space-y-6">
+        <BaseCard>
+          <div
+            class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
+          >
+            <div>
+              <p
+                class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700"
+              >
+                Programa activo
+              </p>
+
+              <h2 class="mt-1 text-xl font-bold text-stone-900">
+                Programa {{ activeProgramIndex + 1 }}
+              </h2>
+
+              <p class="mt-1 text-sm text-stone-500">
+                {{
+                  activeProgram.programName ||
+                  "Completa la información del programa seleccionado."
+                }}
+              </p>
+            </div>
+
+            <BaseBadge variant="draft"> En edición </BaseBadge>
+          </div>
+        </BaseCard>
+
+        <ProgramBasicInfoSection :program="activeProgram" />
+
+        <ProgramDatesLinksSection :program="activeProgram" />
+
+        <ProgramValueSection :program="activeProgram" />
+
+        <ProgramAudienceSection :program="activeProgram" />
+
+        <div class="flex justify-end gap-3">
+          <BaseButton variant="completing"> Guardar borrador </BaseButton>
+
+          <BaseButton to="/briefs/BRF-2026-001/creative-inputs">
+            Continuar a insumos
+          </BaseButton>
+        </div>
       </div>
 
-      <span>Guardado ✓</span>
-    </header>
-
-    <section class="page-header">
-      <div>
-        <h1>Programas incluidos</h1>
-        <p>Agrega los programas que harán parte de la campaña.</p>
-      </div>
-
-      <button class="button-secondary">+ Agregar</button>
-    </section>
-
-    <section class="panel">
-      <h2>Programa 1</h2>
-
-      <div class="grid-2">
-        <div>
-          <label>Nombre del programa</label>
-          <input value="Maestría en Teoría Jurídica y Filosofía del Derecho" />
-        </div>
-
-        <div>
-          <label>SNIES</label>
-          <input value="116157" />
-        </div>
-      </div>
-
-      <label>Resolución MEN</label>
-      <input value="SNIES: 116157 | Presencial - Bogotá - 2 años" />
-
-      <div class="grid-3">
-        <div>
-          <label>Leads requeridos</label>
-          <input value="100" />
-        </div>
-
-        <div>
-          <label>Costo por lead</label>
-          <input value="$27.000" />
-        </div>
-
-        <div>
-          <label>Meta matriculados</label>
-          <input value="30" />
-        </div>
-      </div>
-
-      <label>URL programa</label>
-      <input value="https://www.uexternado.edu.co/programa/derecho/maestria-en-teoria-juridica-y-filosofia-del-derecho/" />
-
-      <div class="actions">
-        <RouterLink to="/briefs/create" class="button-secondary">
-          Anterior
-        </RouterLink>
-
-        <RouterLink to="/briefs/BRF-2026-001/creative-inputs" class="button">
-          Siguiente
-        </RouterLink>
-      </div>
-    </section>
-  </main>
+      <ProgramsSidebar
+        :programs="programs"
+        :active-index="activeProgramIndex"
+        :total-leads="totalLeads"
+        :estimated-investment="estimatedInvestment"
+        @select="selectProgram"
+        @add="addProgram"
+        @remove="removeProgram"
+      />
+    </div>
+  </section>
 </template>

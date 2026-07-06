@@ -15,12 +15,12 @@ defineEmits(["open-sidebar"]);
       <Icon icon="lucide:menu" class="h-5 w-5" />
     </button>
     <img
-      src="/public/logo-uec.jpg"
+      src="/logo-uec.jpg"
       alt="Logo Universidad Externado de Colombia"
-      class="h-11 w-45"
+      class="h-7 w-24 lg:h-11 lg:w-45"
     />
     <div>
-      <h1 class="mt-1 text-lg font-bold text-stone-900">
+      <h1 class="mt-1 text-xs lg:text-lg font-bold text-stone-900">
         Brief Digital Institucional
       </h1>
     </div>

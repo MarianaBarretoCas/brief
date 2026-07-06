@@ -4,6 +4,9 @@ import AppShell from '../app/AppShell.vue'
 
 import LoginView from '../modules/auth/views/LoginView.vue'
 
+import RequestCreateView from '../modules/requests/views/RequestCreateView.vue'
+import RequestPreviewView from '../modules/requests/views/RequestPreviewView.vue'
+
 import BriefDashboardView from '../modules/briefs/views/BriefDashboardView.vue'
 import BriefCreateView from '../modules/briefs/views/BriefCreateView.vue'
 import BriefProgramsView from '../modules/briefs/views/BriefProgramsView.vue'
@@ -36,7 +39,23 @@ const routes = [
         name: 'dashboard',
         component: BriefDashboardView,
         meta: {
-          breadcrumb: 'Mis briefs',
+          breadcrumb: 'Mis solicitudes',
+        },
+      },
+      {
+        path: 'requests/create',
+        name: 'request-create',
+        component: RequestCreateView,
+        meta: {
+          breadcrumb: 'Crear solicitud',
+        },
+      },
+      {
+        path: 'requests/preview',
+        name: 'request-preview',
+        component: RequestPreviewView,
+        meta: {
+          breadcrumb: 'Vista previa de solicitud',
         },
       },
       {

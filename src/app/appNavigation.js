@@ -5,9 +5,9 @@ export const appNavigation = [
     to: '/dashboard',
   },
   {
-    label: 'Crear brief',
+    label: 'Crear solicitud',
     icon: 'lucide:file-plus-2',
-    to: '/briefs/create',
+    to: '/requests/create',
   },
   {
     label: 'Planeación campaña',

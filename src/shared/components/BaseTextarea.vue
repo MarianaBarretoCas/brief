@@ -51,7 +51,7 @@ defineEmits(['update:modelValue'])
       :placeholder="placeholder"
       :rows="rows"
       :maxlength="maxLength || undefined"
-      class="w-full resize-y rounded-xl border border-emerald-700 bg-white px-4 py-3 text-sm text-emerald-950 outline-none transition placeholder:text-emerald-900 focus:border-emerald-900 focus:ring-4 focus:ring-emerald-200"
+      class="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-emerald-950 outline-none transition placeholder:text-emerald-900 focus:border-emerald-700 focus:ring-4 focus:ring-emerald-50"
       @input="$emit('update:modelValue', $event.target.value)"
     />
 
