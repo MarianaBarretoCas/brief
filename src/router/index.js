@@ -6,6 +6,7 @@ import LoginView from '../modules/auth/views/LoginView.vue'
 
 import RequestCreateView from '../modules/requests/views/RequestCreateView.vue'
 import RequestPreviewView from '../modules/requests/views/RequestPreviewView.vue'
+import RequestDetailView from "../modules/requests/views/RequestDetailView.vue";
 
 import BriefDashboardView from '../modules/briefs/views/BriefDashboardView.vue'
 import BriefCreateView from '../modules/briefs/views/BriefCreateView.vue'
@@ -91,11 +92,11 @@ const routes = [
         },
       },
       {
-        path: 'briefs/:id/detail',
-        name: 'brief-detail',
-        component: BriefDetailView,
+        path: 'requests/:id/detail',
+        name: 'request-detail',
+        component: RequestDetailView,
         meta: {
-          breadcrumb: 'Detalle del brief',
+          breadcrumb: 'Detalle de la solicitud',
         },
       },
       {
